@@ -1,6 +1,10 @@
-import React from 'react';
+import { useState } from 'react';
 
 const PizzaBlock = ({ title, price, imgUrl = 'img/Pizza.jpg' }) => {
+  const [pizzaCount, setPizzaCount] = useState(0);
+  const handleIncrementPizzaCount = () => {
+    setPizzaCount(pizzaCount + 1);
+  };
   return (
     <div className="pizza-block">
       <img className="pizza-block__image" src={imgUrl} alt="Pizza" />
@@ -18,7 +22,7 @@ const PizzaBlock = ({ title, price, imgUrl = 'img/Pizza.jpg' }) => {
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} ₽</div>
-        <div className="button button--outline button--add">
+        <button className="button button--outline button--add" onClick={handleIncrementPizzaCount}>
           <svg
             width="12"
             height="12"
@@ -31,8 +35,8 @@ const PizzaBlock = ({ title, price, imgUrl = 'img/Pizza.jpg' }) => {
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
-        </div>
+          <i>{pizzaCount}</i>
+        </button>
       </div>
     </div>
   );
