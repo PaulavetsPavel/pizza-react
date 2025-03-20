@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import defaultPizzaImg from '../assets/img/Pizza.jpg';
+import defaultPizzaImg from '../../assets/img/Pizza.jpg';
 
 const PizzaBlock = ({ name, price, imageUrl = defaultPizzaImg, sizes, types }) => {
   const typeNames = ['тонкое', 'традиционное'];

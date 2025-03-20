@@ -2,12 +2,15 @@ import { useState } from 'react';
 
 const Sort = () => {
   const sortList = ['популярности', 'цене', 'алфавиту'];
+
   const [isVisibleSortPopup, setIsVisibleSortPopup] = useState(false);
   const [currentSort, setCurrentSort] = useState(0);
+
   const onClickSelectSort = (index) => {
     setCurrentSort(index);
     setIsVisibleSortPopup(false);
   };
+
   return (
     <div className="sort">
       <div className="sort__label">
