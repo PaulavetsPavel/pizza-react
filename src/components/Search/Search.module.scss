@@ -1,0 +1,40 @@
+.wrapper {
+  position: relative;
+}
+
+.input__search {
+  padding: 12px 40px;
+  border: 1px solid rgba($color: #000000, $alpha: 0.1);
+  border-radius: 10px;
+  max-width: 400px;
+  font-size: 16px;
+  // transition: all 0.15s ease-in-out;
+  &:focus {
+    border: 1px solid rgba($color: #000000, $alpha: 0.3);
+
+    z-index: 5;
+  }
+}
+.search__icon {
+  width: 24px;
+  height: 24px;
+  opacity: 0.5;
+  position: absolute;
+  left: 12px;
+  top: 12px;
+}
+
+.close__icon {
+  width: 18px;
+  height: 18px;
+  opacity: 0.3;
+  position: absolute;
+  right: 12px;
+  top: 15px;
+  cursor: pointer;
+  z-index: 10;
+  &:hover {
+    opacity: 0.8;
+    z-index: 10;
+  }
+}
