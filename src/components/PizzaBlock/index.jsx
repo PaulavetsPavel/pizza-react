@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import styles from './Pizza-block.module.scss';
 import defaultPizzaImg from '../../assets/img/Pizza.jpg';
 
 const PizzaBlock = ({ title, price, imageUrl = defaultPizzaImg, sizes, types }) => {
@@ -9,17 +9,17 @@ const PizzaBlock = ({ title, price, imageUrl = defaultPizzaImg, sizes, types }) 
   const [activeSize, setActiveSize] = useState(0);
 
   return (
-    <div className="pizza-block__wrapper">
-      <div className="pizza-block">
-        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
-        <h4 className="pizza-block__title">{title}</h4>
-        <div className="pizza-block__selector">
+    <div className={styles.pizza__block__wrapper}>
+      <div className={styles.pizza__block}>
+        <img className={styles.pizza__block__image} src={imageUrl} alt="Pizza" />
+        <h4 className={styles.pizza__block__title}>{title}</h4>
+        <div className={styles.pizza__block__selector}>
           <ul>
             {types.map((typeId, index) => {
               return (
                 <li
                   key={index}
-                  className={activeType === index ? 'active' : ''}
+                  className={activeType === index ? `${styles.active}` : ''}
                   onClick={() => {
                     setActiveType(index);
                   }}>
@@ -33,7 +33,7 @@ const PizzaBlock = ({ title, price, imageUrl = defaultPizzaImg, sizes, types }) 
               return (
                 <li
                   key={index}
-                  className={activeSize === index ? 'active' : ''}
+                  className={activeSize === index ? `${styles.active}` : ''}
                   onClick={() => {
                     setActiveSize(index);
                   }}>
@@ -43,8 +43,8 @@ const PizzaBlock = ({ title, price, imageUrl = defaultPizzaImg, sizes, types }) 
             })}
           </ul>
         </div>
-        <div className="pizza-block__bottom">
-          <div className="pizza-block__price">от {price} ₽</div>
+        <div className={styles.pizza__block__bottom}>
+          <div className={styles.pizza__block__price}>от {price} ₽</div>
           <button className="button button--outline button--add">
             <svg
               width="12"

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import styles from './Sort.module.scss';
 
 const Sort = ({ value, onChangeSort }) => {
   const sortList = [
@@ -18,8 +19,8 @@ const Sort = ({ value, onChangeSort }) => {
   };
 
   return (
-    <div className="sort">
-      <div className="sort__label">
+    <div className={styles.sort}>
+      <div className={styles.sort__label}>
         <svg
           width="10"
           height="6"
@@ -35,13 +36,13 @@ const Sort = ({ value, onChangeSort }) => {
         <span onClick={() => setIsVisibleSortPopup(!isVisibleSortPopup)}>{value.name}</span>
       </div>
       {isVisibleSortPopup && (
-        <div className="sort__popup">
+        <div className={styles.sort__popup}>
           <ul>
             {sortList.map((sortItem, index) => (
               <li
                 key={index}
                 onClick={() => onClickSelectSort(sortItem)}
-                className={value.sortProperty === sortItem.sortProperty ? 'active' : ''}>
+                className={value.sortProperty === sortItem.sortProperty ? `${styles.active}` : ''}>
                 {sortItem.name}
               </li>
             ))}

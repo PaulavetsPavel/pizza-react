@@ -1,4 +1,4 @@
-@import '../variables';
+@import '../../scss/variables';
 
 .categories {
   ul {
@@ -15,7 +15,7 @@
       font-weight: bold;
       cursor: pointer;
       transition: background-color 0.1s ease-in-out;
-      @include noselect();
+      // @include noselect();
       @media (max-width: 1290px) {
         margin-top: 20px;
       }

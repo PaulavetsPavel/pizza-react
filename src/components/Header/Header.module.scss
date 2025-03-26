@@ -1,4 +1,4 @@
-@import '../variables';
+@import '../../scss/variables';
 
 .header {
   border-bottom: 1px solid $gray-line;
@@ -8,14 +8,16 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    @media (max-width: 645px) {
+    padding: 0 30px;
+
+    @media (max-width: 745px) {
       flex-direction: column;
     }
   }
   &__link {
     display: flex;
     flex-direction: column;
-    @media (max-width: 645px) {
+    @media (max-width: 745px) {
       flex-direction: row;
     }
   }
@@ -39,6 +41,8 @@
     }
   }
   &__cart {
-    margin-top: 20px;
+    @media (max-width: 745px) {
+      margin-top: 20px;
+    }
   }
 }

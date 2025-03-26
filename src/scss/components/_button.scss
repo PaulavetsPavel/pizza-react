@@ -12,8 +12,7 @@
   border: 1px solid transparent;
   @include noselect();
 
-  &,
-  span {
+  & span {
     color: #fff;
   }
 
@@ -144,5 +143,8 @@
       font-weight: 600;
       font-size: 16px;
     }
+  }
+  @media (max-width: 930px) {
+    padding: 5px 10px;
   }
 }
