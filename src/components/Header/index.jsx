@@ -3,7 +3,7 @@ import logoPizzaSvg from '../../assets/img/pizza-logo.svg';
 import Search from '../Search';
 import styles from './Header.module.scss';
 
-const Header = ({ searchValue, setSearchValue }) => {
+const Header = () => {
   return (
     <div className={styles.header}>
       <div className={styles.container}>
@@ -16,7 +16,7 @@ const Header = ({ searchValue, setSearchValue }) => {
             </div>
           </div>
         </Link>
-        <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+        <Search />
         <div className={styles.header__cart}>
           <Link to="/cart" className="button button--cart">
             <span>520 ₽</span>

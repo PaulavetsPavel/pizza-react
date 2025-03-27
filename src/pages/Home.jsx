@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 import Categories from '../components/Categories';
 import PizzaBlock from '../components/PizzaBlock';
 import Sort from '../components/Sort/Sort';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
+import { SearchContext } from '../App';
 
-const Home = ({ searchValue }) => {
+const Home = () => {
   const SERVER_URL = `https://67e142aa58cc6bf7852504fb.mockapi.io/items`;
 
   const [pizzas, setPizzas] = useState([]);
@@ -14,6 +15,7 @@ const Home = ({ searchValue }) => {
   const [isLoading, setLoader] = useState(true);
   const [categoryId, setCategoryId] = useState(0);
   const [sortType, setSortType] = useState({ name: 'популярности (вниз)', sortProperty: 'rating' });
+  const { searchValue } = useContext(SearchContext);
 
   const getPizzasFromDb = async (endpoint = SERVER_URL) => {
     try {
