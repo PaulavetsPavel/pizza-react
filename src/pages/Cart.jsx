@@ -16,6 +16,7 @@ const Cart = () => {
   if (!totalPrice) {
     return <CartEmpty />;
   }
+
   return (
     <div className="container">
       <div className="cart">
