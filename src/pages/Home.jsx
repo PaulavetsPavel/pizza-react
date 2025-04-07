@@ -36,24 +36,18 @@ const Home = () => {
       const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
       const search = searchValue ? `&search=${searchValue}` : '';
       const query = `${category}&page=${currentPage}&limit=4&sortBy=${sortBy}&order=${order}${search}`;
-      console.log(query);
 
       // const response = await fetch(`${endpoint}?${query}`);
-      const response = await axios(`${endpoint}?${query}`);
+      const response = await axios.get(`${endpoint}?${query}`);
 
       if (response.statusText !== 'OK') throw new Error(response.statusText);
-
+      setPizzas(response.data);
       return response.data;
     } catch (e) {
       console.log(e);
     } finally {
       setLoader(false);
     }
-  };
-
-  const getPizzas = async () => {
-    const items = await getPizzasFromDb();
-    setPizzas(items);
   };
 
   const onChangePage = (page) => {
@@ -68,7 +62,7 @@ const Home = () => {
         categoryId,
         currentPage,
       });
-      console.log(queryString);
+
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
@@ -79,7 +73,7 @@ const Home = () => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
       const sort = sortList.find((obj) => obj.sortProperty === params.sortProperty);
-      console.log(params);
+
       dispatch(setFilters({ ...params, sort }));
       isSearch.current = true;
     }
@@ -87,7 +81,7 @@ const Home = () => {
 
   useEffect(() => {
     if (!isSearch.current) {
-      getPizzas();
+      getPizzasFromDb();
     }
     isSearch.current = false;
     window.scrollTo(0, 0);

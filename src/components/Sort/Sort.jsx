@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setSortType } from '../../redux/slices/FilterSlice';
@@ -17,7 +17,7 @@ export const sortList = [
 const Sort = () => {
   const sort = useSelector((state) => state.filter.sort);
   const dispatch = useDispatch();
-
+  const sortRef = useRef();
   const [isVisibleSortPopup, setIsVisibleSortPopup] = useState(false);
 
   const onClickSelectSort = (index) => {
@@ -25,8 +25,19 @@ const Sort = () => {
     setIsVisibleSortPopup(false);
   };
 
+  useEffect(() => {
+    const handleClickOutsideSort = (e) => {
+      const path = e.composedPath();
+      if (!path.includes(sortRef.current)) setIsVisibleSortPopup(false);
+    };
+    // добавление обработчика при монтировании
+    document.body.addEventListener('click', handleClickOutsideSort);
+    // удаление обработчика при размонтировании
+    return () => document.body.removeEventListener('click', handleClickOutsideSort);
+  }, []);
+
   return (
-    <div className={styles.sort}>
+    <div className={styles.sort} ref={sortRef}>
       <div className={styles.sort__label}>
         <svg
           width="10"
