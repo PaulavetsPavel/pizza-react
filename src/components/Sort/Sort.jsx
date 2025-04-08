@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setSortType } from '../../redux/slices/FilterSlice';
+import { getFilterSelector, setSortType } from '../../redux/slices/FilterSlice';
 
 import styles from './Sort.module.scss';
 
@@ -15,7 +15,7 @@ export const sortList = [
 ];
 
 const Sort = () => {
-  const sort = useSelector((state) => state.filter.sort);
+  const { sort } = useSelector(getFilterSelector);
   const dispatch = useDispatch();
   const sortRef = useRef();
   const [isVisibleSortPopup, setIsVisibleSortPopup] = useState(false);

@@ -1,10 +1,14 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/FilterSlice.js';
-import { fetchAllPizzas } from '../redux/slices/PizzasSlice.js';
+import {
+  getFilterSelector,
+  setCategoryId,
+  setCurrentPage,
+  setFilters,
+} from '../redux/slices/FilterSlice.js';
+import { fetchAllPizzas, getPizzasSelector } from '../redux/slices/PizzasSlice.js';
 import { useNavigate } from 'react-router';
 
-import axios from 'axios';
 import qs from 'qs';
 
 import Categories from '../components/Categories';
@@ -23,9 +27,9 @@ const Home = () => {
   // первый рендеринг
   const isMounted = useRef(false);
 
-  const { categoryId, sort, searchValue, currentPage } = useSelector((state) => state.filter);
+  const { categoryId, sort, searchValue, currentPage } = useSelector(getFilterSelector);
 
-  const { items, status } = useSelector((state) => state.pizzas);
+  const { items, status } = useSelector(getPizzasSelector);
 
   const getPizzasFromDb = async () => {
     const category = categoryId > 0 ? `category=${categoryId}` : '';

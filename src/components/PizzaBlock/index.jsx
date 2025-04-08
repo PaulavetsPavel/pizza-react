@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './Pizza-block.module.scss';
 import defaultPizzaImg from '../../assets/img/Pizza.jpg';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem } from '../../redux/slices/CartSlice';
+import { addItem, getCartItemByIdSelector } from '../../redux/slices/CartSlice';
 
 const PizzaBlock = ({ id, title, price, imageUrl = defaultPizzaImg, sizes, types }) => {
   const typeNames = ['тонкое', 'традиционное'];
@@ -25,7 +25,7 @@ const PizzaBlock = ({ id, title, price, imageUrl = defaultPizzaImg, sizes, types
     dispatch(addItem(item));
   };
 
-  const cartItem = useSelector((state) => state.cart.items.find((obj) => obj.id === id));
+  const cartItem = useSelector(getCartItemByIdSelector(id));
 
   const cartItemCountAdd = cartItem ? cartItem.count : 0;
 
