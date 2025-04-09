@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import CartItem from '../components/CartItem.jsx/CartItem';
 import { clearItems, getCartSelector } from '../redux/slices/CartSlice';
 import CartEmpty from '../components/CartItem.jsx/CartEmpty';
+
 const Cart = () => {
   const { items, totalPrice } = useSelector(getCartSelector);
   const dispatch = useDispatch();

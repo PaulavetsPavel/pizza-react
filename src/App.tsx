@@ -1,12 +1,14 @@
+
+import { Routes, Route } from 'react-router';
+
 import Header from './components/Header';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
-import { Routes, Route } from 'react-router';
-
-import './scss/app.scss';
 import Cart from './pages/Cart';
 
-const App = () => {
+import './scss/app.scss';
+
+const App:React.FC= () => {
   return (
     <>
       <div className="wrapper">
