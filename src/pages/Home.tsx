@@ -11,13 +11,13 @@ import { useNavigate } from 'react-router';
 
 import qs from 'qs';
 
-import Categories from '../components/Categories';
-import PizzaBlock from '../components/PizzaBlock';
+import Categories from '../components/Categories/index';
+import PizzaBlock from '../components/PizzaBlock/index';
 import Sort, { sortList } from '../components/Sort/Sort';
 import Skeleton from '../components/PizzaBlock/Skeleton';
-import Pagination from '../components/Pagination';
+import Pagination from '../components/Pagination/index';
 
-const Home = () => {
+const Home: React.FC = () => {
   // const SERVER_URL = `https://67e142aa58cc6bf7852504fb.mockapi.io/items`;
 
   const navigate = useNavigate();
@@ -37,10 +37,15 @@ const Home = () => {
     const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
     const search = searchValue ? `&search=${searchValue}` : '';
 
-    dispatch(fetchAllPizzas({ category, sortBy, order, search, currentPage }));
+    dispatch(
+      //@ts-ignore
+      fetchAllPizzas({ category, sortBy, order, search, currentPage })
+    );
   };
-
-  const onChangePage = (page) => {
+  const onChangeCategory = (id: number) => {
+    dispatch(setCategoryId(id));
+  };
+  const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
   };
 
@@ -83,7 +88,7 @@ const Home = () => {
   });
 
   const pizzasArr = items
-    ? items.map((item) => {
+    ? items.map((item: any) => {
         return <PizzaBlock {...item} key={item.id} />;
       })
     : [];
@@ -92,7 +97,7 @@ const Home = () => {
     <>
       <div className="container">
         <div className="content__top">
-          <Categories value={categoryId} onChangeCategory={(id) => dispatch(setCategoryId(id))} />
+          <Categories value={categoryId} onChangeCategory={onChangeCategory} />
           <Sort />
         </div>
         <h2 className="content__title">Все пиццы</h2>

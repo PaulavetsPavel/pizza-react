@@ -5,9 +5,9 @@ import Search from '../Search';
 import styles from './Header.module.scss';
 import { getCartSelector } from '../../redux/slices/CartSlice';
 
-const Header = () => {
+const Header:React.FC = () => {
   const { items, totalPrice } = useSelector(getCartSelector);
-  const totalItems = items.reduce((sum, item) => sum + item.count, 0);
+  const totalItems = items.reduce((sum:number, item:any) => sum + item.count, 0);
 
   const { pathname } = useLocation();
 

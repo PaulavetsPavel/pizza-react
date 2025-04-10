@@ -5,28 +5,28 @@ import { getFilterSelector, setSearchValue } from '../../redux/slices/FilterSlic
 import { useRef, useState, useCallback } from 'react';
 import debounce from 'lodash.debounce';
 
-const Search = () => {
+const Search: React.FC = () => {
   // локальный стэйт для изменения input без отправки запроса
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState<string>('');
 
   const dispatch = useDispatch();
   const { searchValue } = useSelector(getFilterSelector);
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const onClickClear = () => {
     setValue('');
     dispatch(setSearchValue(''));
-    inputRef.current.focus();
+    inputRef.current?.focus();
   };
 
   const updatreSearchValue = useCallback(
-    debounce((str) => {
+    debounce((str: string) => {
       dispatch(setSearchValue(str));
     }, 500),
     []
   );
 
-  const onChangeInput = (e) => {
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     // изменение value в input
     setValue(e.target.value);
     // отправка запроса после 500мс

@@ -5,7 +5,12 @@ import { getFilterSelector, setSortType } from '../../redux/slices/FilterSlice';
 
 import styles from './Sort.module.scss';
 
-export const sortList = [
+type SortItem = {
+  name: string;
+  sortProperty: string;
+};
+
+export const sortList: SortItem[] = [
   { name: 'популярности (вниз)', sortProperty: 'rating' },
   { name: 'популярности (вверх)', sortProperty: '-rating' },
   { name: 'цене (вниз)', sortProperty: 'price' },
@@ -14,21 +19,21 @@ export const sortList = [
   { name: 'алфавиту (вверх)', sortProperty: '-title' },
 ];
 
-const Sort = () => {
+const Sort: React.FC = () => {
   const { sort } = useSelector(getFilterSelector);
   const dispatch = useDispatch();
-  const sortRef = useRef();
-  const [isVisibleSortPopup, setIsVisibleSortPopup] = useState(false);
+  const sortRef = useRef<HTMLDivElement>(null);
+  const [isVisibleSortPopup, setIsVisibleSortPopup] = useState<boolean>(false);
 
-  const onClickSelectSort = (index) => {
+  const onClickSelectSort = (index: SortItem) => {
     dispatch(setSortType(index));
     setIsVisibleSortPopup(false);
   };
 
   useEffect(() => {
-    const handleClickOutsideSort = (e) => {
-      const path = e.composedPath();
-      if (!path.includes(sortRef.current)) setIsVisibleSortPopup(false);
+    const handleClickOutsideSort = (e: MouseEvent) => {
+      if (sortRef.current && !e.composedPath().includes(sortRef.current))
+        setIsVisibleSortPopup(false);
     };
     // добавление обработчика при монтировании
     document.body.addEventListener('click', handleClickOutsideSort);

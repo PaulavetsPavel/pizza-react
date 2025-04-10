@@ -4,8 +4,19 @@ import defaultPizzaImg from '../../assets/img/Pizza.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, getCartItemByIdSelector } from '../../redux/slices/CartSlice';
 
-const PizzaBlock = ({ id, title, price, imageUrl = defaultPizzaImg, sizes, types }) => {
-  const typeNames = ['тонкое', 'традиционное'];
+type PizzaBlockProps = {
+  id: string;
+  title: string;
+  type: string;
+  price: number;
+  imageUrl: string;
+  sizes: number[];
+  types: number[];
+  
+};
+
+const PizzaBlock:React.FC<PizzaBlockProps> = ({ id, title, price, imageUrl = defaultPizzaImg, sizes, types }) => {
+  const typeNames:string[] = ['тонкое', 'традиционное'];
 
   const dispatch = useDispatch();
 
