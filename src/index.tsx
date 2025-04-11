@@ -3,13 +3,12 @@ import './index.css';
 import { BrowserRouter } from 'react-router';
 
 import { Provider } from 'react-redux';
-import { store } from './redux/store.js';
+import { store } from './redux/store';
 import App from './App';
 
 const rootElement = document.getElementById('root');
 
 if (rootElement) {
-  
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <BrowserRouter>

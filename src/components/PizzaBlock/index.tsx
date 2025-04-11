@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './Pizza-block.module.scss';
 import defaultPizzaImg from '../../assets/img/Pizza.jpg';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem, getCartItemByIdSelector } from '../../redux/slices/CartSlice';
+import { addItem, CartItemType, getCartItemByIdSelector } from '../../redux/slices/CartSlice';
 
 type PizzaBlockProps = {
   id: string;
@@ -12,11 +12,17 @@ type PizzaBlockProps = {
   imageUrl: string;
   sizes: number[];
   types: number[];
-  
 };
 
-const PizzaBlock:React.FC<PizzaBlockProps> = ({ id, title, price, imageUrl = defaultPizzaImg, sizes, types }) => {
-  const typeNames:string[] = ['тонкое', 'традиционное'];
+const PizzaBlock: React.FC<PizzaBlockProps> = ({
+  id,
+  title,
+  price,
+  imageUrl = defaultPizzaImg,
+  sizes,
+  types,
+}) => {
+  const typeNames: string[] = ['тонкое', 'традиционное'];
 
   const dispatch = useDispatch();
 
@@ -24,13 +30,14 @@ const PizzaBlock:React.FC<PizzaBlockProps> = ({ id, title, price, imageUrl = def
   const [activeSize, setActiveSize] = useState(0);
 
   const onclickAddPizza = () => {
-    const item = {
+    const item: CartItemType = {
       id,
       title,
       price,
       imageUrl,
       size: sizes[activeSize],
       type: typeNames[activeType],
+      count: 0,
     };
 
     dispatch(addItem(item));

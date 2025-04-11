@@ -1,22 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getFilterSelector, setSortType } from '../../redux/slices/FilterSlice';
+import {
+  getFilterSelector,
+  setSortType,
+  SortItem,
+  SortPropertyEnum,
+} from '../../redux/slices/FilterSlice';
 
 import styles from './Sort.module.scss';
 
-type SortItem = {
-  name: string;
-  sortProperty: string;
-};
-
 export const sortList: SortItem[] = [
-  { name: 'популярности (вниз)', sortProperty: 'rating' },
-  { name: 'популярности (вверх)', sortProperty: '-rating' },
-  { name: 'цене (вниз)', sortProperty: 'price' },
-  { name: 'цене (вверх)', sortProperty: '-price' },
-  { name: 'алфавиту (вниз)', sortProperty: 'title' },
-  { name: 'алфавиту (вверх)', sortProperty: '-title' },
+  { name: 'популярности (вниз)', sortProperty: SortPropertyEnum.RATING_DESC },
+  { name: 'популярности (вверх)', sortProperty: SortPropertyEnum.RATING_ASC },
+  { name: 'цене (вниз)', sortProperty: SortPropertyEnum.PRICE_DESC },
+  { name: 'цене (вверх)', sortProperty: SortPropertyEnum.PRICE_ASC },
+  { name: 'алфавиту (вниз)', sortProperty: SortPropertyEnum.TITLE_DESC },
+  { name: 'алфавиту (вверх)', sortProperty: SortPropertyEnum.TITLE_ASC },
 ];
 
 const Sort: React.FC = () => {

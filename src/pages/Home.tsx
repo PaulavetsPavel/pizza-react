@@ -1,12 +1,12 @@
 import { useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   getFilterSelector,
   setCategoryId,
   setCurrentPage,
   setFilters,
-} from '../redux/slices/FilterSlice.js';
-import { fetchAllPizzas, getPizzasSelector } from '../redux/slices/PizzasSlice.js';
+} from '../redux/slices/FilterSlice';
+import { fetchAllPizzas, getPizzasSelector, SearchPizzaParams } from '../redux/slices/PizzasSlice';
 import { useNavigate } from 'react-router';
 
 import qs from 'qs';
@@ -32,8 +32,10 @@ const Home: React.FC = () => {
   const { items, status } = useSelector(getPizzasSelector);
 
   const getPizzasFromDb = async () => {
-    const category = categoryId > 0 ? `category=${categoryId}` : '';
+    const category = categoryId > 0 ? `category=${categoryId}` : '0';
+
     const sortBy = sort.sortProperty.replace('-', '');
+
     const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
     const search = searchValue ? `&search=${searchValue}` : '';
 
@@ -49,31 +51,43 @@ const Home: React.FC = () => {
     dispatch(setCurrentPage(page));
   };
 
-  useEffect(() => {
-    // при первом рендере не записывать параметры поиска в строку поиска
-    if (isMounted.current) {
-      const queryString = qs.stringify({
-        sortProperty: sort.sortProperty,
-        categoryId,
-        currentPage,
-      });
+  // useEffect(() => {
+  //   // при первом рендере не записывать параметры поиска в строку поиска
+  //   if (isMounted.current) {
+  //     const queryString = qs.stringify({
+  //       sortProperty: sort.sortProperty,
+  //       categoryId,
+  //       currentPage,
+  //     });
 
-      navigate(`?${queryString}`);
-    }
+  //     navigate(`?${queryString}`);
+  //   }
 
-    isMounted.current = true;
-  }, [categoryId, sort, searchValue, currentPage]);
+  //   isMounted.current = true;
+  // }, [categoryId, sort, searchValue, currentPage]);
 
-  useEffect(() => {
-    // если есть параметры поиска, то записать их в redux
-    if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
-      const sort = sortList.find((obj) => obj.sortProperty === params.sortProperty);
+  // useEffect(() => {
+  //   // если есть параметры поиска, то записать их в redux
+  //   if (window.location.search) {
+  //     const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams;
+  //     // console.log(params);
 
-      dispatch(setFilters({ ...params, sort }));
-      isSearch.current = true;
-    }
-  }, []);
+  //     const sort = sortList.find((obj) => obj.sortProperty === params.sortBy.sortProperty);
+  //     if (sort) {
+  //       params.sortBy = sort;
+  //     }
+
+  //     dispatch(
+  //       setFilters({
+  //         categoryId: Number(params.category),
+  //         sort: sort || sortList[0],
+  //         searchValue: params.search,
+  //         currentPage: params.currentPage,
+  //       })
+  //     );
+  //     isSearch.current = true;
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (!isSearch.current) {
