@@ -4,12 +4,21 @@ import logoPizzaSvg from '../../assets/img/pizza-logo.svg';
 import Search from '../Search';
 import styles from './Header.module.scss';
 import { getCartSelector } from '../../redux/slices/CartSlice';
+import { useEffect, useRef } from 'react';
 
-const Header:React.FC = () => {
+const Header: React.FC = () => {
   const { items, totalPrice } = useSelector(getCartSelector);
-  const totalItems = items.reduce((sum:number, item:any) => sum + item.count, 0);
-
+  const totalItems = items.reduce((sum: number, item: any) => sum + item.count, 0);
+  const isMounted = useRef(false);
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (isMounted.current) {
+      const cartJson = JSON.stringify(items);
+      localStorage.setItem('cart', cartJson);
+    }
+    isMounted.current = true;
+  }, [items]);
 
   return (
     <div className={styles.header}>

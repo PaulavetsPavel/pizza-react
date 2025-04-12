@@ -1,14 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
-import {
-  getFilterSelector,
-  setSortType,
-  SortItem,
-  SortPropertyEnum,
-} from '../../redux/slices/FilterSlice';
+import { useDispatch } from 'react-redux';
+import { setSortType } from '../../redux/slices/FilterSlice';
 
 import styles from './Sort.module.scss';
+import React from 'react';
+import { SortItem, SortPropertyEnum } from '../../redux/slices/types';
 
 export const sortList: SortItem[] = [
   { name: 'популярности (вниз)', sortProperty: SortPropertyEnum.RATING_DESC },
@@ -19,8 +16,11 @@ export const sortList: SortItem[] = [
   { name: 'алфавиту (вверх)', sortProperty: SortPropertyEnum.TITLE_ASC },
 ];
 
-const Sort: React.FC = () => {
-  const { sort } = useSelector(getFilterSelector);
+type SortBlockProps = {
+  value: SortItem;
+};
+
+const SortBlock: React.FC<SortBlockProps> = React.memo(({ value }) => {
   const dispatch = useDispatch();
   const sortRef = useRef<HTMLDivElement>(null);
   const [isVisibleSortPopup, setIsVisibleSortPopup] = useState<boolean>(false);
@@ -56,7 +56,7 @@ const Sort: React.FC = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsVisibleSortPopup(!isVisibleSortPopup)}>{sort.name}</span>
+        <span onClick={() => setIsVisibleSortPopup(!isVisibleSortPopup)}>{value.name}</span>
       </div>
       {isVisibleSortPopup && (
         <div className={styles.sort__popup}>
@@ -65,7 +65,7 @@ const Sort: React.FC = () => {
               <li
                 key={index}
                 onClick={() => onClickSelectSort(sortItem)}
-                className={sort.sortProperty === sortItem.sortProperty ? `${styles.active}` : ''}>
+                className={value.sortProperty === sortItem.sortProperty ? `${styles.active}` : ''}>
                 {sortItem.name}
               </li>
             ))}
@@ -74,6 +74,6 @@ const Sort: React.FC = () => {
       )}
     </div>
   );
-};
+});
 
-export default Sort;
+export default SortBlock;

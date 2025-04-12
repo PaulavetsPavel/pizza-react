@@ -2,7 +2,8 @@ import { useState } from 'react';
 import styles from './Pizza-block.module.scss';
 import defaultPizzaImg from '../../assets/img/Pizza.jpg';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem, CartItemType, getCartItemByIdSelector } from '../../redux/slices/CartSlice';
+import { addItem, getCartItemByIdSelector } from '../../redux/slices/CartSlice';
+import { CartItemType } from '../../redux/slices/types';
 
 type PizzaBlockProps = {
   id: string;

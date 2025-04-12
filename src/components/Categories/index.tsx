@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './Categories.module.scss';
 
 type CategoriesProps = {
@@ -5,7 +6,7 @@ type CategoriesProps = {
   onChangeCategory: (i: number) => void;
 };
 
-const Categories: React.FC<CategoriesProps> = ({ value, onChangeCategory }) => {
+const Categories: React.FC<CategoriesProps> = React.memo(({ value, onChangeCategory }) => {
   const categories: string[] = ['Все', 'Мясные', 'Вегетарианскиу', 'Гриль', 'Острые', 'Закрытые'];
 
   return (
@@ -26,6 +27,6 @@ const Categories: React.FC<CategoriesProps> = ({ value, onChangeCategory }) => {
       </ul>
     </div>
   );
-};
+});
 
 export default Categories;
